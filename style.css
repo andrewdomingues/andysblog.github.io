@@ -1,0 +1,34 @@
+body{
+    background-color: #000;
+    color: #fff;
+    font-family: sans-serif;
+}
+#main{
+    text-align: center;
+    border: 3px solid yellow;
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+h3{
+    text-align: center;
+    margin-top: 60vh;
+    margin-left: 30vw;
+    margin-right: 30vw;
+    border: 3px solid yellow;
+}
+/* Links */
+a{
+    text-decoration: none;
+    color: white;
+}
+
+a:hover{
+    color: yellow;
+    text-shadow: 0 0 10px yellow;
+}
+a:active{
+    color: yellow;
+    text-shadow: 0 0 10px yellow;
+}
+/* END Links*/
