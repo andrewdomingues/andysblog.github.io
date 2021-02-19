@@ -25,20 +25,35 @@ header{
 /* NAV */
 ul{
   border-bottom: 2px solid cyan;
+  border-radius: 5px;
   list-style: none;
   
 }
 
-ul li{
+li{
   display: inline;
+  padding: 0px 10px;
+  
 }
 
-ul li a{
+a{
   display: inline-block;
   padding: 5px 15px;
+  margin-bottom: 15px;
   text-decoration: none;
+  background-color: none;
+  border: 2px solid cyan;
+  border-radius: 5px;
   color: white;
   text-transform: uppercase;
 }
 
+li:hover{
+  position: relative;
+  top: 1px;
+}
+a:active{
+  background-color: cyan;
+  color: black;
+}
 /* END NAV */
