@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!--
+
+MANTENHA OS CRÉDITOS FI DA MÃE!
+SLACKJEFF RULES.
+
+-->
+<html lang="pt-br">
+    <head>
+        <title>Slackware Free</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Jefferson Rocha"/>
+        <meta name="email" content="lrcjefferson@gmail.com"/>
+        <meta name="description" content="Site pessoal do Slackjeff"/>
+        <meta http-equiv="content-language" content="pt-br"/>
+        <meta name="copyright" content="© 2018 Jefferson Rocha"/>
+        <meta name="rating" content="general"/>   
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/png" href="../img/photo.png"/>
+        <style>
+        	pre{background-color: #dadada; padding: 2%; box-shadow: 1px 1px 1px #c3c3c3;}
+        </style>
+</head>
+<body>
+    <h2><a href="main.html">← Voltar</a></h2>
+<h1>Slackware Free</h1>
+<b>Autor: Jefferson 'Slackjeff' Rocha</b><br>
+<b>Atualização: 14/06/2019</b><br>
+
+<h2 class="mark">INÍCIO</h2>
+
+Eu nunca fui do time 100% Software livre. Uso alguns programas que são proprietários mas a 
+cada ano que passa eu tento me desfazer ao máximo de softwares proprietários, e de caras que 
+tem uma licença RUIM, que não seja livre.
+
+<p>
+O Slackware é uma distribuição potente e que vem com um conjunto de softwares que sem internet 
+você está bem abastecido. E nesse conjunto alguns softwares proprietários e com licenças que 
+não são do agrado do Stallman estão presentes.
+</p>
+
+<p>
+Depois de procurar e vagar por um tempo eu achei uma alternativa para por o Slackware em 
+estado Debian. Calma, sem apt! Estou falando do estado livre que o Debian vem por padrão, os 
+repositórios do mesmo é padronizado com o MAIN, que por sua vez só possui software livre.
+</p>
+
+<p>
+Então como fazer essa mágica? Simples, vamos usar como base o Freenix, antigo Freeslack, que é 
+baseado em Slackware mas 100% Livre.
+O Freenix possui uma lista de pacotes não livres retirados da base do Slackware. Vamos usar 
+esta base para tornar nosso Slackware 100% Libre.
+</p>
+
+<p>
+Para começar vamos precisar mexer na listas de repositório do Slackware e adicionar na última 
+linha o repositório do Freenix.
+Como root executamos:
+</p>
+
+<pre>
+echo '
+# 100% Libre
+<b>https://freenix.net/fxp/freeslack64-14.2/</b>
+' >> /etc/slackpkg/mirrors
+</pre>
+
+<p>
+Se caso você já tem uma instalação mais antiga do Slackware me seu HD, comente o antigo 
+repositório e adicione <b>#</b> na frente do mesmo.
+</p>
+
+<p>
+Após isso vamos precisar alterar/adicionar a variável SLACKKEY presente em 
+/etc/slackpkg/slackpkg.conf, vamos achar a variável SLACKKEY na linha 65. Se caso a antiga 
+varíavel SLACKKEY não está comentada, comente. 2 mesmas variáveis entram em conflito.
+</p>
+
+
+
+<!-- ADSENSE -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- slackjeff blog -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1983636563768502"
+     data-ad-slot="3835480024"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<pre>
+SLACKKEY="Connie Dobbs (Free eXpansion Pack for Slackware)"
+</pre>
+
+<p>
+Após feito isso, precisamos atualizar a chave GPG do projeto em seguida atualizar a lista de 
+repositório
+</p>
+
+<pre>
+slackpkg update gpg && slackpkg update
+</pre>
+
+<p>
+Repositório está em pé e agora chegou a hora mais divertida, desinstalar softwares não livres 
+e com licenças que não são bem vistas pela FSF.
+Como diria Júlio Neves, se for em uma linha é melhor ainda. E vamos fazer exatamente isso. 
+Vamos rodar o comando removepkg com alguns pacotes!
+</p>
+
+<pre>
+<b>removepkg</b>               \
+  getty-ps              \
+  lha                   \
+  unarj                 \
+  amp                   \
+  seamonkey-solibs      \
+  bluez-firmware        \
+  ipw2100               \
+  ipw2200               \
+  trn                   \
+  zd1211-firmware       \
+  font-bh-ttf           \
+  font-bh-type1         \
+  mozilla-thunderbird   \
+  mozilla-firefox       \
+  seamonkey             \
+  xfractint             \
+  xgames                \
+  xv                    \
+  kernel-firmware       \
+  kernel-generic        \
+  kernel-huge           \
+  kernel-modules        \
+  kernel-headers        \
+  kernel-source    
+</pre>
+
+<p>
+Sim, o mozilla é livre mas permite plugins não livres. Por tanto você vai ficar sem browser. 
+Você pode compilar e instalar o Icecat, presente no Slackbuilds ;) Ou até mesmo ficar com o 
+Firefox. A decisão é sua... Só remova da lista. Porém não ficará 100% Livre.<br>
+Uma nota! O Icecat precisa de um processador potente para compilar, seu dual-core não vai dar conta do recado. Sinto-lhe informar, se você é do time "Pc Fraco" use um pacote pré compilado, busque no site do Slackonly esse pacote.
+</p>
+
+<p>
+Próxima etapa é instalar o Linux Libre, o kernel Linux que foi removido todos os Blobs.
+Vamos fazer isso com o slackpkg, agora estamos puxando do repositório do Freenix :)
+</p>    
+
+<pre>
+<b>slackpkg install</b>        \
+   linux-libre-headers  \
+   linux-libre-image    \
+   linux-libre-source
+</pre>
+
+<p>
+Passo feito? Ok, estamos na reta final, precisamos agora apontar o nosso novo kernel no 
+lilo.conf. Porém o Linux Libre Generic não vai rolar, não por enquanto... Vamos precisar 
+apontar o Huge primeiramente, reiniciar a máquina para depois gerar os módulos e finalmente 
+fazer o apontamento no lilo.conf.
+</p>
+
+<p>
+Abra o lilo.conf e adicione no final da linha:
+</p>
+
+<pre>
+image = <b>/boot/vmlinuz-huge-4.4.172-gnu</b>
+  root = /dev/sda1
+  label = Huge-Libre
+  read-only
+</pre>
+
+<p>
+Perceba que na chamada da <b>image =</b> mudará futuramente a este artigo! Por isso faça a 
+chamada de acordo com o kernel huge do sistema. Faça a listagem em <b>/boot/</b> e veja qual 
+arquivo apontar.
+</p>
+
+<p>
+Execute o lilo e reinicie a máquina.
+</p>
+
+<pre>
+lilo
+</pre>
+
+<p>
+Ok, depois que a máquina foi reiniciada e se NÃO deu um kernel panic, o que é meio dificil se 
+você seguiu este HOW-TO, chegou a hora de fazer o carregamento do Kernel Generic.
+Vamos usar o script presente em /usr/share/mkinitrd.
+</p>
+
+<pre>
+<b>/usr/share/mkinitrd/mkinitrd_command_generator.sh</b>
+mkinitrd -c -k 4.4.172 -f ext4 -r /dev/sda1 -m 
+hid-logitech-hidpp:hid-lenovo:hid-microsoft:hid_multitouch:jbd2:mbcache:ext4 
+-u -o /boot/initrd.gz
+</pre>
+
+<p>
+A saída sera para os módulos que podem ser carregados na minha máquina. A sua vai ser 
+variável. Execute o mkinitrd que foi gerado.
+</p>
+
+<pre>
+<b>mkinitrd</b> -c -k 4.4.172 -f ext4 -r /dev/sda1 -m
+hid-logitech-hidpp:hid-lenovo:hid-microsoft:hid_multitouch:jbd2:mbcache:ext4
+-u -o /boot/initrd.gz
+</pre>
+
+<p>
+Após isso faça a chamada novamente do script, mas dessa vez apontando o kernel generic em 
+/boot/. Utilize o parâmetro -l
+</p>
+
+<pre>
+/usr/share/mkinitrd/mkinitrd_command_generator.sh \
+-l /boot/vmlinuz-generic-4.4.172-gnu
+</pre>
+
+<p>
+A saída sera com uma configuração para o lilo.conf, adicione em lilo.conf a saída gerada, em 
+seguida execute o lilo para pegar as novas chamadas no menu.
+</p>
+
+<pre>
+image = /boot/vmlinuz-generic-4.4.172-gnu
+  initrd = /boot/initrd.gz
+  root = /dev/sda1
+  label = Generic-Libre
+  read-only
+</pre>
+
+<pre>
+lilo
+</pre>
+
+</body>
+</html>
+

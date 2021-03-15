@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<!--
+
+MANTENHA OS CRÉDITOS FI DA MÃE!
+SLACKJEFF RULES.
+
+-->
+<html lang="pt-br">
+    <head>
+        <title>Verificando a versão do Slackware</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Jefferson Rocha"/>
+        <meta name="email" content="lrcjefferson@gmail.com"/>
+        <meta name="description" content="Site pessoal do Slackjeff"/>
+        <meta http-equiv="content-language" content="pt-br"/>
+        <meta name="copyright" content="© 2018 Jefferson Rocha"/>
+        <meta name="rating" content="general"/>   
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/png" href="../img/photo.png"/>
+        <style>
+            pre{background-color: #dadada; padding: 2%; box-shadow: 1px 1px 1px #c3c3c3;}
+        </style>
+</head>
+<body>
+    <h2><a href="main.html">← Voltar</a></h2>
+<h1>Verificando a versão do Slackware</h1>
+<b>Autor: Jefferson 'Slackjeff' Rocha</b><br>
+<b>Atualização: 29/09/2019</b><br>
+
+<h2 class="mark">INÍCIO</h2>
+
+<p>
+Para verificar qual a versão do Slackware temos dois meios que são bastante utilizados e práticos, o primeiro é fazer a leitura do arquivo <b>slackware-version</b>, que está localizado no diretório /etc/. Para isto você pode executar o comando cat indicando o arquivo de entrada, ou simplesmente abrir com seu editor favorito. 
+</p>
+
+<pre>
+$ cat /etc/slackware-version
+Slackware 14.2 
+</pre>
+
+<p>
+O arquivo <b>slackware-version</b> será também atualizado se você dar um upgrade de versão. Claro.
+</p>
+
+<p>
+O segundo método é o mais completão, existe um arquivo que está presente em praticamente todas as distribuições Linux, digamos que é uma norma POSIX existir este arquivo indicando uma série de informações básicas do sistema.
+</p>
+
+<p>
+Este arquivo se chama <b>os-release</b> e também está localizado em /etc/. Para fazer a sua leitura pode utilizar os mesmos métodos do passo a cima com o comando cat ou seu editor favorito.
+</p>
+
+
+
+<!-- ADSENSE -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- slackjeff blog -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1983636563768502"
+     data-ad-slot="3835480024"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<pre>
+$ cat /etc/os-release
+NAME=Slackware
+VERSION="14.2"
+ID=slackware
+VERSION_ID=14.2
+PRETTY_NAME="Slackware 14.2"
+ANSI_COLOR="0;34"
+CPE_NAME="cpe:/o:slackware:slackware_linux:14.2"
+HOME_URL="http://slackware.com/"
+SUPPORT_URL="http://www.linuxquestions.org/questions/slackware-14/"
+BUG_REPORT_URL="http://www.linuxquestions.org/questions/slackware-14/" 
+</pre>
+
+<p>
+<b>NOTA:</b> que há uma série de informações bem valiosas neste arquivo.<br>
+Podem ser facilmente usadas em seu script em Shell utilizando o comando <b>source</b> ou <b>.</b> para fazer o carregamento destas informações.<br>
+Um exemplo bem simples utilizando o bash:
+</p>
+
+<pre>
+$ <b>source</b> /etc/os-release
+$ echo "Distribuição: <b>$NAME</b>"
+Distribuição: Slackware
+$ echo "Versão: <b>$VERSION</b>"
+Versão: 14.2
+$ echo "URL SITE: <b>$HOME_URL</b>"
+URL SITE: http://slackware.com/
+</pre>
+
+<p>
+Ou você pode usar uma maneira mais UNIX de lidar com as coisas usando o velho feijão com arroz...
+Assim você consegue também recolher os dados necessários.
+</p>
+
+<p>
+Para isto executamos uma linha de pipelines armazenando dentro de uma variável chamada <b>version</b> como exemplo.
+</p>
+
+<pre>
+$ version=$(grep '^VERSION=' /etc/os-release | cut -d '=' -f 2 | sed 's/"//g')
+$ echo "$version"
+14.2
+</pre>
+
+<p>
+O grep filtrou e encontrou o campo VERSION, o cut fez o corte delimitando o '=' como base e pegou somente o campo 2, o sed trocou as aspas duplas '"' por nada. 
+</p>
+
+
+</body>
+</html>

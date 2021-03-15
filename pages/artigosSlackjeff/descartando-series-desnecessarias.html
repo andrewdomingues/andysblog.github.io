@@ -1,0 +1,183 @@
+<!DOCTYPE html> <!--
+
+  MANTENHA OS CRÉDITOS FI DA MÃE!
+  SLACKJEFF RULES.
+  
+  -->
+  <html lang="pt-br">
+      <head>
+          <title>Descartando séries no Slackware não tão necessárias</title>
+          <meta charset="utf-8">
+          <meta name="author" content="Jefferson Rocha"/>
+          <meta name="email" content="lrcjefferson@gmail.com"/>
+          <meta name="description" content="Retirando séries no Slackware não tão necessárias e entendo as mesmas."/>
+          <meta http-equiv="content-language" content="pt-br"/>
+          <meta name="copyright" content="© 2018 Jefferson Rocha"/>
+          <meta name="rating" content="general"/>   
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <link rel="shortcut icon" type="image/png" href="../img/photo.png"/>
+          <style>
+            .mark{background-color: #313131; color: white; padding: 0.5%}
+            h3{background-color: #c9c9c9; padding: 0.5%;}
+        pre{padding: 2%; background-color: black; color: #06ff00; box-shadow: 1px 1px 1px 1px #06ff00;}
+          </style>
+  </head>
+  <body>
+      <h2><a href="main.html">← Voltar</a></h2>
+  <h1>Descartando séries no Slackware não tão necessárias.</h1>
+  <b>Autor: Jefferson 'Slackjeff' Rocha</b><br>
+  
+  <h2 class="mark">INÍCIO</h2>
+  
+  <p>
+  O instalador do Slackware Linux foi criado para ser simples e seguir a filosofia KISS. Por isso ele é bem objetivo e vai direto ao ponto sem muita piruleta e é completo.
+  </p>
+  
+  <p>
+  Neste HOWTO explico qual série você pode descartar e não terá problemas futuros! Lembrando a você que é baseado na minha experiência, e não necessariamente o que eu costumo remover será benéfico para você. Por exemplo, eu não uso nenhuma interface padrãoque vem com o Slackware, nem XFCE nem KDE, eu costumo subir um novo sistema no runlevel 3, faço toda configurações básicas, baixo o sbopkg e minha queufile pronta e compilo o I3.
+  </p>
+  
+  <p>
+  Também não instalo nenhum aplicativo gráfico como mplayer, audacious, xmms, gimp etc... Eu faço tudo na pós instalação e boto realmente o que vou precisando com o tempo! Na grande maioria uso mais as ferramentas via Cli que o Slackware dispõe.
+  </p>
+  
+  
+  <h3>Séries</h3>
+  <p>
+  Para começar você precisa entender as séries do Slackware para ter uma visão mais ampla. Não adianta eu mostrar a coisa resumida e você não entender o que está acontecendo.
+  </p>
+  
+  <p>
+  As séries do Slackware nada mais são que uma estrutura aonde fica os pacotes! Por exemplo, a base do sistema fica na estrutura <b>A</b>, aplicativos de modo gráfico na estrutura <b>XAP</b>, bibliotecas em <b>L</b> e por ai vai!
+  </p>
+  
+  <!-- ADSENSE -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- slackjeff blog -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-1983636563768502"
+       data-ad-slot="3835480024"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+  
+  <p>
+  Diferentemente de muitas distribuições, a distribuição é instalada por pacotes e não copiada/jogada para a sua partição! Por isso temos um controle total do que pode ser instalado! Vamos desmembrar a série do Slackware e entender melhor.
+  </p>
+  
+  <h4>[ A ] - Base do Sistema.</h4>
+  <p>
+  Contém a BASE do sistema, como estrutura de diretórios, ferramentas necessárias básicas para o sistema funcionar corretamente como: pkgtools, Kernel Linux, bin, bash, grep, sed, shadow, dialog estão presentes nesta série. Está série é necessária.
+  </p>
+  
+  <h4>[ AP ] - Aplicativos que NÃO necessitam do X para ser executados</h4>
+  <p>
+  Nesta série está presente utilitários como: nano, vim, slackpkg, mutt, bc, sudo, lzip. Ou seja se você é habituado a usar o linha de comando, está série contém tudo que você precisa para se divertir. Adoro essa categoria.
+  </p>
+  
+  <h4>[ D ] - Programa de desenvolvimento</h4>
+  <p>
+  No Slackware sabemos que muita coisa precisamos sujar as mão com compilação! Está série é ideal para isso, pois possui um conjunto de compiladores, linguagens de programação e utilitários para desenvolvedores etc...<br>Autoconf, automake, make, cmake, gcc, git, python, ruby, perl e yasm estão presentes aqui.
+  </p>
+  
+  <h4>[ E ] - Emacs</h4>
+  <p>
+  Sem muito o que comentar. O emacs é um editor poderoso de texto.
+  </p>
+  
+  <h4>[ F ] - Documentação, HOWTO</h4>
+  <p>
+  Documentações em geral sobre o Linux estão presentes aqui que serão instaladas em /usr/doc/Linux-FAQs/ .
+  </p>
+  
+  <h4>[ K ] - Fonte do Kernel Linux</h4>
+  <p>
+  Aqui está a fonte do Kernel Linux, se você por exemplo pensa em utilizar o virtualbox em seu sistema ou até mesmo recompilar o kernel, é interessante manter essa categoria.
+  </p>
+  
+  <h4>[ KDE ] - Ambiente gráfico KDE</h4>
+  <p>
+  Se você curte o KDE, ele está todo aqui, utilitários, bibliotecas etc...
+  </p>
+  
+  <h4>[ KDEI ] - Suporte a Linguagens de internacionalização</h4>
+  <p>
+  Suporte a Linguagens de internacionalização para o ambiente KDE.
+  </p>
+  
+  <h4>[ L ] - Bibliotecas do sistema</h4>
+  <p>
+  Aqui está presente as bibliotecas/libs necessárias para fazer a grande parte do sistema subir corretamente. É uma série gigante. Ou seja, se uma lib daqui for removida e X, Y, Z software depende do mesmo, vai precisar por os dedinhos pra trabalhar, ldd vai ser seu amigo.
+  </p>
+  
+  <h4>[ N ] - Rede</h4>
+  <p>
+  Clientes e servidores como: dhcpd, httpd, iproute, bind, NetworkManager, irssi, iputils, links, lynx, netkit, nmap, samba, sendmail, wireless-tools, wpa_supplicant, whois etc... Estão presente aqui, então para se conectar na internet está série é importante.
+  </p>
+  
+  <h4>[ T ] - TEX Linguagem de formatação de texto</h4>
+  <p>
+  TEX é uma linguagem de formatação de texto, uma alternativa conhecida para se digitar fórmulas matemáticas complexas, apontada como um dos sistemas de tipografia mais sofisticados do mundo.
+  </p>
+  
+  <h4>[ TCL ] - Linguagem de programação</h4>
+  <p>
+  Nesta série possui a linguagem de programação TCL, juntamente com o TK para fazer programas com interface.
+  </p>
+  
+  <h4>[ X ] - Xorg e relacionados</h4>
+  <p>
+  Se você deseja ter uma interface gráfica, esta série é necessária!
+  </p>
+  
+  <h4>[ XAP ] - Aplicativos gráficos</h4>
+  <p>
+  Aqui você encontra aplicativos gráficos <b>que não sejam do Kde</b> como: Gimp, mplayer, audacious, xmms, geeqie, gftp, hexchat, mozilla firefox, xpdf etc...
+  </p>
+  
+  <h4>[ XFCE ] - Ambiente gráfico XFCE e programas</h4>
+  <p>
+  Todo ambiente gráfico XFCE está presente aqui, se você curti um ambiente leve e personalizavél, é para você.
+  </p>
+  
+  <h4>[ Y ] - Jogos em modo texto</h4>
+  <p>
+  Esta série contém joguinhos que rodam via CLI ou em modo texto.
+  </p>
+  
+  <h3>O que eu posso retirar?</h3>
+  <p>
+  Bom, agora que você conhece um pouco das séries do Slackware, você já tem uma noção básica de quais séries deixar! Vale lembrar que quando você retira uma série em uma instalação full, as mesmas não serão instaladas e se você usar o modo expert por exemplo para retirar mais profundamente os pacotes, os mesmo não irão aparecer.
+  </p>
+  
+  <p>
+  Bom, eu sempre uso a mesma base e uso o modo <b>expert</b> para retirar algumas coisas que não vejo importância em deixar, vale lembrar para você tomar cuidado e saber o que está fazendo para não deixar libs soltas no sistema por exemplo. E tbm se algum programa presente no SlackBuilds depender do X e não esta instalado, você vai precisar inserir...
+  </p>
+  
+  <ul>
+      <li><b>A</b> *RETIRO*: elilo, ed, tcsh, efibootmgr, grub, ncompress</li>
+      <li><b>AP</b> *RETIRO*: ash, jed, joe, jove, ksh93, most, zsh, sc, vim, sudo</li>
+      <li><b>D</b></li>
+      <li><b>K</b></li>
+      <li><b>L</b> *RETIRO*: seamonkey-solibs</li>
+      <li><b>N</b> *RETIRO*: bluez, bluez-firmware, epic5, samba</li>
+      <li><b>X</b></li>
+  </ul>
+  
+  <p>
+  Minha lista é está! Se você deseja um ambiente gráfico como XFCE ou KDE é só incluir a Série e tudo estará bem ;)
+  Outra coisa, eu também costumo retirar a série <b>XAP</b>, como sabemos é ele que inclui aplicativos gráficos, como vem muita coisa que não uso eu depois instalo com o slackpkg o que preciso e já era.
+  </p>
+  
+  <p>
+  Lembre-se o Slackware não serve para ser uma distribuição minima! O que fizemos é apenas reduzir algumas coisas que não achamos necessárias. O Patrick, inseriu ao longo dos anos vários programas e alternativas, tipo vários editores de texto, vários clientes irc, vários browser cli ou não para atender um número maior de pessoas e claro, o usuário decidir o que usar e retirar.
+  </p>
+  
+  </body>
+  </html>
+  
+  

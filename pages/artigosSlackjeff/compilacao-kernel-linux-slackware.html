@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<!--
+
+MANTENHA OS CRÉDITOS FI DA MÃE!
+SLACKJEFF RULES.
+
+-->
+<html lang="pt-br">
+    <head>
+        <title>Compilação Kernel Linux no Slackware | Slackjeff</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Jefferson Rocha"/>
+        <meta name="email" content="root@slackjeff.com.br"/>
+        <meta name="description" content="Faça compilação e empacotamento do Kernel Linux para o Slackware, de uma forma simples, rápida e prática.">
+        <meta http-equiv="content-language" content="pt-br"/>
+        <meta name="copyright" content="© 2018 Jefferson Rocha"/>
+        <meta name="rating" content="general"/>   
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/png" href="../img/photo.png"/>
+        <style>
+			pre{padding: 1%; background-color: black; color: #06ff00; box-shadow: 1px 1px 1px 1px #06ff00;}
+        </style>
+</head>
+<body>
+    <h2><a href="main.html">← Voltar</a></h2>
+<h1>Compilação Kernel linux no Slackware.</h1>
+<b>Autor: Jefferson 'Slackjeff' Rocha</b><br>
+
+<h2 class="mark">INÍCIO</h2>
+
+<p>
+A controvérsias se você deve ou não compilar o seu kernel! Alguns vão dizer para você deixar própria distribuição tomar conta do núcleo para você. Outros irão dizer que é necessário compilar o Kernel na sua máquina.
+</p>
+
+<p>
+Eu particulamente sempre compilei o meu Kernel, deixando ele o mais leve possível. Porém existem coisas que você deve saber. A primeira é que a distribuição não oferece mais suporte para o seu novo kernel, ou seja, quem toma conta é você! Muitos aplicativos poderão não funcionar, como é o caso do virtualbox do Slackbuilds... Você deve pegar a última versão no site oficial para ter o suporte. Mas bom, isso é na data de hoje.
+</p>
+
+<p>
+Hoje vamos aprender a fazer uma compilação especial para sua máquina! Nada genérico e sim especial, sua máquina vai gostar :) No final vamos gerar um lindo pacote para o Slackware, assim você pode instalar/desinstalar quando necessitar.
+</p>
+
+<p>
+Como vamos fazer uma "make" especial, você deve pegar todos os dispositivos que você usa normalmente e fazer o processo de <b>inserção</b>! Lembre-se vamos personalizar um kernel especial para sua máquina que é feito especialmente para sua máquina. Caso na compilação você NÃO utilize um pendrive que você sempre usa por exemplo, vai acabar que quando ser inserido ele não irá ser reconhecido, e você vai precisar recompilar o kernel com suporte aquele dispositivo! Legal? haha.
+</p>
+
+
+<p>
+O que as distribuições <i>normalmente</i> fazem é criar um kernel mais genérico que tem suporte aos hardwares e dispositivos mais diversificados! Normalmente também são compilados em módulos que são chamados pelo kernel quando precisam! Então muita porcaria vem junto, e isso é desnecessário.
+</p>
+
+<h2 class="mark">Mão na massa</h2>
+
+<p>
+A primeira coisa a ser feita é baixar o kernel no site <a href="kernel.org" target="_blank">kernel.org</a>, baixe a versão que você desejar, eu normalmente pego a versão <b>stable</b>, após feito isso descompacte em <b>/usr/src/</b> e crie um link simbólico chamado <b>linux</b>, o link simbólico não é obrigatório.
+</p>
+
+<pre>
+# tar xvf linux-5.4.10.tar.xz -C /usr/src/
+
+# cd /usr/src
+
+# ln -vs linux-5.4.10/ linux
+'linux/linux-5.4.10' -> 'linux-5.4.10/'
+</pre>
+
+<p>
+Se você criou o link simbólico entre em <b>linux</b>, se não entre no diretório aonde está a fonte do kernel linux direto. Dentro do diretório vamos rodar o comando <b>make mrproper</b> para fazer uma limpeza e retirar as impurezas antes de iniciar a compilação.
+</p>
+
+
+
+<!-- ADSENSE -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- slackjeff blog -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1983636563768502"
+     data-ad-slot="3835480024"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+<pre>
+# cd linux
+
+# make mrproper
+</pre>
+
+<p>
+Feito isso vamos pegar a configuração dos módulos/drivers que está em execução no momento, note que o suporte a config em /proc deve estar habilitado no kernel. Caso você rode o comando abaixo e não funcione copie o .config de /boot.
+</p>
+
+<pre>
+# zcat /proc/config.gz > .config
+</pre>
+
+<p>
+O comando zcat pega o arquivo comprimido e envia para o STDOUT a saída. Fazendo isto podemos redirecionar a saída para alguma lugar, no caso <b>.config</b>.
+</p>
+
+<p>
+Vamos verificar quando módulos estão ativos no momento! Isto para ter uma base apenas.
+</p>
+
+<pre>
+# grep =y < .config | wc -l
+1843
+</pre>
+
+<h3>Configuração Local.</h3>
+
+<p>
+Usar uma configuração local é um bom meio de peneirar seu novo Kernel e existem muitos métodos para isto.
+Mas vale ressaltar que estes métodos podem resultar em falhas na questão de não peneirar todos os drivers desnecessários.
+</p>
+
+<p>
+Então mesmo assim é interessante você fazer uma configuração a mais para conseguir retirar o máximo de módulos e opções desnecessárias do seu novo Kernel. Algumas configurações que eu utilizo:
+</p>
+
+<ul>
+   <li><b>localmodconfig</b></li>
+   <ul>
+      <li>Esta opção compila em módulos e não embutido no kernel.</li>
+   </ul>
+
+   <li><b>localyesconfig</b></li>
+   <ul>
+      <li>É similar ao localmodconfig, porém compila de forma embutida os drivers etc... ou seja sem módulos externos</li>
+   </ul>
+</ul>
+
+<!-- ADSENSE -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- slackjeff blog -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1983636563768502"
+     data-ad-slot="3835480024"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>
+Vamos rodar o make localmodconfig para dar aquela peneirada básica no .config. Note que como estamos pegando um .config de uma versão de kernel diferente, você deve responder algumas perguntas na tela. Vamos também executar o grep novamente pra ver quantos módulos estão presentes nessa limpada.
+</p>
+
+
+<pre>
+# make localmodconfig
+
+# grep =y < .config | wc -l
+1505
+</pre>
+
+<p>
+Note que deu uma pequena enxugada, agora chegou a hora de você agir! A compilação do kernel é tentativa e erros, comigo já aconteceu vários e vários kernel panic, é normal! Vou passar alguns comandos para você obter a informação do seu computador!
+</p>
+
+<h3>Informações da máquina</h3>
+
+<p>
+Quando vamos compilar o kernel precisamos saber informações da nossa máquina para ter um sucesso mais satisfatório e assim fazer um kernel bem personalizado a nossa máquina. Existem alguns métodos para obter informações do seu sistema, irei te passar quatro formas de se fazer isto, se usadas em conjunto ficam bem completas.
+</p>
+
+<p>
+É interessante você redirecionar as saídas para algum arquivo em texto, para vocẽ estudar mais com calma todos os seus componentes necessários.
+</p>
+
+<pre>
+# lspci -v
+# lsusb -v
+# lsmod
+# cat /proc/cpuinfo | grep 'flags'
+</pre>
+
+<h3>Retornando</h3>
+
+<p>
+Ok, feito o processo de busca de drivers necessários, vamos retornar a compilação! Vamos rodar o <b>make menuconfig</b>, que abrirá uma tela amigavel desenhada com ncurses para você fazer uma configuração mais satisfátoria.
+</p>
+
+<p>
+Agora é com você! Existe uma coisa bem legal que pode ser feita é alterar o Local version do kernel, você pode por o seu nome por exemplo algo tipo <b>-custom-slackjeff</b>. Outra coisa a ser feita também é ajustar a compressão do kernel, inicialmente ele vem como LZMA, trocamos para XZ que além de ser mais rápido ele comprime melhor.
+</p>
+
+<p>
+Meu computador não tem Wireless ou algo relacionada a rádio amador e nem bluetooth. O localmodconfig deixou escapar algumas coisas... É importante retirar o "lixo". Ficando com 1469 Módulos, no meu caso. Note que poderia ser enxugado mais ainda! Muito lixo eu deixei passar... Mas quanto mais enxugar o negócio mais a chance de algo der errado. Eu não quero isso.. Quero apenas um kernel um pouco mais personalizado. Se você necessita de algo extremamente pequeno, pesquise sobre <b>Linux Kernel Tinification</b>.
+</p>
+
+<pre>
+# grep =y < .config | wc -l
+1469
+</pre>
+
+<p>
+Agora ao invés de fazer o meio tradicional, make BzImage etc... Vamos compilar o kernel e gerar um "pacote" xz, este processo pode demorar um tempo dependendo da sua máquina, para ir para próxima etapa, do empacotamento para o Slackware... Mais opções em make help.
+</p>
+
+<pre>
+# make tarxz-pkg -j 4 
+</pre>
+
+<p>
+O tarball será criado no mesmo diretório! Todo nosso kernel prontinho para fazer fakeroot está neste pacote :)
+</p>
+
+<pre>
+# ls *.xz
+linux-5.4.10-custom-slackjeff-x86.tar.xz
+</pre>
+
+<p>
+Vamos agora fazer o pacote para o Slackware... O processo tradicional que estamos habituado, não vou falar muito sobre pois já tenho artigo aqui no meu site. Vou criar um diretório em /tmp mesmo chamado linux, e descompactar o pacote .xz lá. Vamos entrar no diretório e criar um diretório install.
+</p>
+
+<pre>
+# mkdir -v /tmp/linux
+mkdir: created directory '/tmp/linux'
+
+# tar xvf linux-5.4.10-custom-slackjeff-x86.tar.xz -C /tmp/linux/
+
+# cd /tmp/linux
+
+# mkdir install
+</pre>
+
+
+<p>
+Feito isto vamos gerar um arquivo slack-desc dentro do diretório install que acabamos de criar e preencher com informações.
+</p>
+
+<pre>
+# cat <<EOF >> /install/slack-desck
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+appname: appname (Short description of the application)
+appname:      <this line is generally left blank>
+appname: Description of application  -  this description should be fairly
+appname: in-depth; in other words, make it clear what the package does (and 
+appname: maybe include relevant links and/or instructions if there's room),
+appname: but don't get too verbose.  
+appname: This file can have a maximum of eleven (11) lines of text preceded by
+appname: the "appname: " designation.  
+appname:
+appname: It's a good idea to include a link to the application's homepage too.
+appname:
+EOF
+</pre>
+
+<p>
+Preenchido todas informações do slack-desc vamos gerar o pacote! Note que você deve tar na raiz aonde o kernel está. /tmp/linux</p>
+
+<pre>
+# makepkg -l y -c n ../linux-5.4.10-x86_64-1.txz
+</pre>
+
+<p>
+Feito isto vamos instalar, setar o lilo.conf, rodar o lilo e reiniciar a máquina.
+</p>
+
+<pre>
+# installpkg linux-5.4.10-x86_64-1.txz
+
+# nano /etc/lilo.conf
+
+# lilo
+Warning: LBA32 addressing assumed
+Added Linux  *
+One warning was issued.
+
+# shutdown -r now
+
+$ uname -a
+Linux darkstar 5.4.10-custom-slackjeff #1 SMP Wed Jan 22 15:44:14 -03 2020 x86_64 AMD FX(tm)-6100 Six-Core Processor AuthenticAMD GNU/Linux
+</pre>
+
+<p>
+Obrigado e até a próxima :)
+</p>
+
+
+
+</body>
+</html>
+

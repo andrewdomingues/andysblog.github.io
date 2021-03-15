@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--
+
+MANTENHA OS CRÉDITOS FI DA MÃE!
+SLACKJEFF RULES.
+
+-->
+<html lang="pt-br">
+    <head>
+        <title>Atalhos Básico do I3</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Jefferson Rocha"/>
+        <meta name="email" content="lrcjefferson@gmail.com"/>
+        <meta name="description" content="Site pessoal do Slackjeff"/>
+        <meta http-equiv="content-language" content="pt-br"/>
+        <meta name="copyright" content="© 2018 Jefferson Rocha"/>
+        <meta name="rating" content="general"/>   
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/png" href="../img/photo.png"/>
+        <style>
+			pre{padding: 2%; background-color: black; color: #06ff00; box-shadow: 1px 1px 1px 1px #06ff00;}
+        </style>
+</head>
+<body>
+    <h2><a href="main.html">← Voltar</a></h2>
+<h1>Atalhos Básico do I3</h1>
+<b>Autor: Jefferson 'Slackjeff' Rocha</b><br>
+<b>Atualização: 02/10/2019</b><br>
+
+<h2 class="mark">INÍCIO</h2>
+
+<p>
+O I3 sem dúvida é um dos melhores e mais simples ambientes que todo programador e 
+usuário comum deve aprender.
+</p>
+
+<p>
+Principalmente se você gosta de simplicidade, é claro que temos ambientes gráficos mais roots que o I3 
+</p>
+
+<p>
+A sua vida será mais facilitada com o uso deste ambiente gráfico e também o seu 
+computador agradece, isso por consumir pouco do cpu...
+</p>
+
+<p>
+Vamos ver algumas teclas de atalho básico para você começar o uso.
+</p>
+
+
+
+<!-- ADSENSE -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- slackjeff blog -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1983636563768502"
+     data-ad-slot="3835480024"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h2>Janela</h2>
+
+<table style="width:100%">
+  <tr>
+    <th>O que faz?</th>
+    <th>Atalho</th>
+  </tr>
+  <tr>
+    	<td>Alterar Área de trabalho</td>
+    	<td>BIND + Número</td>
+  </tr>
+    <tr>
+    	<td>Abrir nova Janela com terminal</td>
+    	<td>BIND + Enter</td>
+  </tr>
+    <tr>
+    	<td>Jogar janela para outra área de trabalho</td>
+    	<td>BIND + SHIFT + → ↓ ↑ </td>
+  </tr>
+    <tr>
+    	<td>Alterar Área de trabalho</td>
+    	<td>BIND + Número</td>
+  </tr>
+    <tr>
+    	<td>Mover entre janela</td>
+    	<td>BIND + → ↓ ↑ ←</td>
+  </tr>
+  <tr>
+    	<td>Flutuação de janela</td>
+    	<td>BIND + SHIFT + Espaço</td>
+  </tr>
+  <tr>
+    	<td>Redimensionar Janela</td>
+    	<td>BIND + R</td>
+  </tr>
+  <tr>
+  		<td>Janela em Fullscreen</td>
+  		<td>BIND + F</td>
+  </tr>
+  <tr>
+    	<td>Fechar Janela atual</td>
+    	<td>BIND + SHIFT + Q</td>
+  </tr>
+  <tr>
+    	<td>Janela Horinzontal</td>
+    	<td>BIND + H</td>
+  </tr>
+  <tr>
+    	<td>Janela Vertical</td>
+    	<td>BIND + V</td>
+  </tr>
+  <tr>
+  		<td>Abrir o Dmenu</td>
+  		<td>BIND + D</td>
+  </tr>
+  <tr>
+  		<td>Fechar o I3</td>
+  		<td>BIND + SHIFT + E</td>
+  </tr>
+  <tr>
+  		<td>Recarregar o I3</td>
+  		<td>BIND + SHIFT + R</td>
+  </tr>
+  <tr>
+  		<td>Modo Stacked</td>
+  		<td>BIND + S</td>
+  </tr>
+  <tr>
+  		<td>Modo Tabbed</td>
+  		<td>BIND + W</td>
+  </tr>
+  <tr>
+  		<td>Modo Standard</td>
+  		<td>BIND + E</td>
+  </tr>
+ </table>
+
+<h2>Criando uma tecla personalizada</h2>
+
+<p>
+Para criar um tecla personalizada no I3 é simples... Você precisa abrir o arquivo de configuração do I3 que está localizada em seu HOME, ou no arquivo global localizado em /etc/i3/.
+</p>
+
+<p>
+Em nosso caso vamos personalizar no arquivo global em /etc/i3/, como root:
+</p>
+
+<pre>
+# nano /etc/i3/config
+</pre>
+
+<p>
+Navegue até o final da linha e adicione:
+</p>
+
+<pre>
+bindsym Mod4+<b>TeclaQueVocêPrecisa</b> exec <b>Aplicativo</b>
+</pre>
+
+<p>
+Exemplo para abrir o gimp quando pressionado BIND + G
+</p>
+
+<pre>
+# Abrir o gimp
+bindsym Mod4+g exec gimp
+
+# Abrir o steam
+bindsym Mod4+s exec steam
+</pre>
+
+</body>
+</html>

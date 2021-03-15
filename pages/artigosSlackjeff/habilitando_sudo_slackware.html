@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<!--
+
+MANTENHA OS CRÉDITOS FI DA MÃE!
+SLACKJEFF RULES.
+
+-->
+<html lang="pt-br">
+    <head>
+        <title>Habilitando o Sudo no Slackware</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Jefferson Rocha"/>
+        <meta name="email" content="lrcjefferson@gmail.com"/>
+        <meta name="description" content="Site pessoal do Slackjeff"/>
+        <meta http-equiv="content-language" content="pt-br"/>
+        <meta name="copyright" content="© 2018 Jefferson Rocha"/>
+        <meta name="rating" content="general"/>   
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/png" href="../img/photo.png"/>
+        <style>
+            pre{background-color: #dadada; padding: 2%; box-shadow: 1px 1px 1px #c3c3c3;}
+        </style>
+</head>
+<body>
+    <h2><a href="main.html">← Voltar</a></h2>
+<h1>Habilitando o Sudo no Slackware</h1>
+<b>Autor: Jefferson 'Slackjeff' Rocha</b><br>
+<b>Atualização: 29/09/2019</b><br>
+
+<h2 class="mark">INÍCIO</h2>
+
+<p>
+Sudo, substitute user do (Substituição do usuário) ou Super user do (fazer como super usuário) tem um grande papel em sistemas UNIX Likes, o sudo permite que usuários comuns possam obter privilégios temporariamente de um outro usuário, em grande escala muito utilizada para os privilégios do super usuário root. 
+</p>
+
+<p>
+Há muitas vantagens e desvantagens em usar o sudo em relação ao su, por exemplo às vezes precisamos apenas realizar uma tarefa rapidamente, como atualizar o sistema com um único comando, como 'slackpkg update && slackpkg upgrade-all' ou simplesmente abrir um arquivo que tem permissão de escrita e leitura somente para o root, por exemplo. 
+</p>
+
+<p>
+Mas todo super herói paga seu preço, como o sudo permite que o usuário tenha super poderes temporariamente, qualquer pessoa que souber a senha do seu usuário comum pode ter estes super privilégios. 
+</p>
+
+<p>
+Por isto é de extrema importância você ter uma senha segura quanto para o root quanto para o seu usuário comum, assim podendo utilizar o sudo com tranquilidade. 
+</p>
+
+<p>
+Diferente de outras distribuições o Slackware vem por padrão com o sudo desabilitado, e vamos aprender a como habilitar.
+</p>
+
+<p>
+O primeiro passo é criar um grupo chamado "sudo", para está simples tarefa podemos fazer de dois modos. O primeiro é criando manualmente um grupo, e o segundo é utilizando o comando 'groupadd NOMEdoGRUPO'. 
+</p>
+
+<p>
+Vamos utilizar o modo manual para um melhor aprendizado e noção. 
+</p>
+
+<p>
+O primeiro passo é logar-se como root, para isto use o comando su, e logo após vamos abrir um arquivo de configuração dos grupos que fica localizado em /etc/group, abra com seu editor favorito: 
+</p>
+
+<pre>
+$ su
+# nano /etc/group 
+</pre>
+
+
+
+<!-- ADSENSE -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- slackjeff blog -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1983636563768502"
+     data-ad-slot="3835480024"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>
+Vamos navegar até a última linha do arquivo 'group' e adicionar uma linha em especial para o sudo, a minha penúltima linha contem o grupo privoxy, o seu arquivo com toda certeza será diferente: 
+</p>
+
+<pre>
+privoxy:x:206: 
+</pre>
+
+<p>
+Neste mesmo formato vamos criar o grupo sudo, o formato deve ser o seguinte: 
+</p>
+
+<pre>
+nomedogrupo:x:ID:NOMEdoUSUARIO 
+</pre>
+
+<p>
+Para conferir o ID do seu usuário rode o comando '<b>id -u</b>', lembre-se de ser com o usuário que será habilitado o sudo. 
+</p>
+
+<pre>
+$ id -u
+1000 
+</pre>
+
+<p>
+Adicionamos então na última linha do arquivo group: 
+</p>
+
+<pre>
+sudo:x:1000:NomeUsuário
+</pre>
+
+<p>
+Exemplo: 
+</p>
+
+<pre>
+nobody:x:98:nobody
+nogroup:x:99:
+users:x:100:
+console:x:101:
+tor:x:220:
+privoxy:x:206:
+sudo:x:1000:slackjeff
+</pre>
+
+<p>
+Feito este processo, salve e feche. 
+</p>
+
+<p>
+Agora vamos precisar editar o arquivo 'sudoers', para isto abra com seu editor favorito o arquivo /etc/sudoers. 
+</p>
+
+<pre>
+# nano /etc/sudoers 
+</pre>
+
+<p>
+Aberto o arquivo, localize a linha '# %sudo ALL=(ALL) ALL', esta linha está comentada com a tralha '#' na frente do %sudo, precisamos descomentar, retirar o '#' da frente do %sudo para ter efeito... caso você esteja utilizando o editor nano, pode utilizar as teclas simultaneamente CTRL + W, irá abrir um campo de pesquisa no canto esquerdo inferior, basta inserir '%sudo ALL=(ALL) ALL' para a localização ser feita. 
+</p>
+
+<p>
+Linha sudo comentada: 
+</p>
+
+<pre>
+## Uncomment to allow members of group sudo to execute any command
+# %sudo ALL=(ALL) ALL 
+</pre>
+
+<p>
+Linha sudo descomentada: 
+</p>
+
+<pre>
+## Uncomment to allow members of group sudo to execute any command
+%sudo ALL=(ALL) ALL 
+</pre>
+
+<p>
+Descomentado a linha do sudo, salve e feche, para colocar a cereja no bolo precisamos fazer uma última configuração que é muito importante. Sabemos que usuários comuns tem o UID 1000, e alguns comandos são especiais para o super usuário que contem a UID 0, quando rodamos um comando o sistema procura na variável de ambiente $PATH a localização do comando que pedimos. 
+</p>
+
+<p>
+Existem diretórios como é o exemplo '/sbin' que é acessível somente com usuários de UID 0, um exemplo é o próprio root. O que acontece se tentarmos executar um comando como o slackpkg por exemplo que está dentro diretório? Vai falhar. 
+</p>
+
+<p>
+Por isso precisamos adicionar duas novas linhas em nosso PATH. 
+</p>
+
+<p>
+Para isto ainda como usuário root vamos abrir o arquivo 'profile' que está localizado em '/etc/profile' e localizar a linha: 
+</p>
+
+<pre>
+# Set the default system $PATH:
+PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
+</pre>
+
+<p>
+Note que há uma padrão estabelecido, os diretórios tem seu campo separado por ':'. Ao final do '/usr/games' adicionamos os ':' e adicionamos '/sbin' e após isto adicionamos ':' novamente e '/usr/sbin'. Salve e feche. 
+</p>
+
+<pre>
+# Set the default system $PATH:
+PATH="/usr/local/bin:/usr/bin:/bin:/usr/games:/sbin:/usr/sbin"
+</pre>
+
+<p>
+<b>NOTA:</b> observe que agora o seu usuário comum (UID 1000) consegue executar os comandos de manutenção que são encontrados em /sbin e /usr/sbin, sendo que antes estes comandos nestes diretórios nem sequer eram 'mostrados' para um usuário comum (UID 1000). Porém mesmo agora enxergando estes comandos vamos necessitar do super usuário para dar continuação. 
+</p>
+
+<p>
+Simplificando, é o mesmo que em um arquivo você dar permissão de leitura, para um determinado usuário, ele consegue ler mas não consegue escrever e nem executar, por exemplo. 
+</p>
+
+<p>
+Reinicie seu sistema com o comando shutdown com parâmetros -r now, ou simplesmente saia do seu usuário e retorne, para isto você poder executar o comando exit ou pressionar simultaneamente as teclas 'CTRL + D'. 
+</p>
+
+<pre>
+# exit 
+</pre>
+
+<p>
+Faça testes adicionando sudo na frente do(s) comando(s) desejado(s).<br>
+Teste também atualizando sua lista e checksuns com o slackpkg. 
+</p>
+
+<pre>
+$ sudo ls /root/
+$ sudo slackpkg update 
+</pre>
+
+</body>
+</html>
+

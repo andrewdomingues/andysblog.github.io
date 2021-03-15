@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!--
+
+MANTENHA OS CRÉDITOS FI DA MÃE!
+SLACKJEFF RULES.
+
+-->
+<html lang="pt-br">
+    <head>
+        <title>Me cansei do SBopkg | Slackjeff</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Jefferson Rocha"/>
+        <meta name="email" content="root@slackjeff.com.br"/>
+        <meta name="description" content="Me cansei do SBopkg, prefiro as coisas manuais :)">
+        <meta http-equiv="content-language" content="pt-br"/>
+        <meta name="copyright" content="© 2018 Jefferson Rocha"/>
+        <meta name="rating" content="general"/>   
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/png" href="../img/photo.png"/>
+        <style>
+			pre{padding: 2%; background-color: black; color: #06ff00; box-shadow: 1px 1px 1px 1px #06ff00;}
+        </style>
+</head>
+<body>
+    <h2><a href="main.html">← Voltar</a></h2>
+<h1>Me cansei do SBopkg.</h1>
+<b>Autor: Jefferson 'Slackjeff' Rocha</b><br>
+
+<hr>
+
+<h2 class="mark">INÍCIO</h2>
+
+<p>
+Eu sou dos caras que gosta de poupar recursos e gosto de desenvolver meus próprios mecanismos ou em nosso termo 
+'hacks' para fazer a manutenção do sistema. O Slackware na atualidade é um dos pioneiros nessa questão, você administra 
+o sistema do seu jeito, cria os seus próprios hacks e pode brincar a vontade... Não importando muito como é feito, se funciona, faz bem para você é o que vale.
+</p>
+
+<p>
+A um bom tempo utilizo e sou mantenedor de alguns SlackBuilds do site slackbuilds.org, depois de muito lutar e muita 
+gente me pedindo "canal no youtube, pessoas pedindo review", acabei que caindo na tentação de usar o SBopkg. Eu falei 
+para mim mesmo; "É só por uns dias, vou aprender as principais funcionalidades bem e fazer o review da ferramenta e 
+mostrar para as pessoas." Basicamente era esse meu pensamento. Bom, se foram quase 3 anos usando essa ferramenta 
+escrita em shell contando até hoje com 4921 linhas de código e mantido pelo Willy.
+</p>
+
+<p>
+Para quem não sabe o SBopkg é uma ferramenta que automatiza a tarefa de compilação/instalação dos SlackBuilds, tem um 
+sistema de busca, instalação, sincronização, atualização e remoção dos pacotes criados pelo slackbuilds. Não podemos 
+esquecer do Queuefiles, uma mão na roda aonde você pode fazer o empilhamento das dependências.
+Fora outras funcionalidades interessantes para manter os seus Slackbuilds no seu sistema. Não é um software ruim, de 
+longe isso. É muito bem estruturado e feito.
+</p>
+
+<p>
+Porém como eu sou enjoado, xiita fi da mãe, acabei largando o sbopkg faz uns dias. Depois de 3 anos vendo essa 
+ferramenta evoluir acabei que me enjoando dessa automatização toda. O motivo? bom, simplesmente hoje ele não atende a 
+minha realidade. Tudo começou quando eu dei um downgrade na minha internet de 30MB para uma internet a rádio de 500kbps 
+dividido em 3 pessoas na casa. A realidade que eu faço o download do melhor link da internet em 30 à 50kbps, o que é 
+horrivel!
+</p>
+
+<p>
+Por esse motivo acabei também largando o slackpkg, mas esse é assunto para outro artigo :)
+</p>
+
+<p>
+Eu tinha recentemente comprado um netbook 32 bits veio de guarda por 100 reais, e fiz a velha instalação e pós 
+instalação de sempre e nela incluso o sbopkg, quando fiz a sincronia das portas online para minha máquina demorou mais 
+ou menos 30 minutos para concluir. Já me irritei com o tempo e taquei um "removepkg sbopkg" sem dó. Eu sei... eu não 
+pensei muito, talvez iria me arrepender.
+</p>
+
+
+
+<!-- ADSENSE -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- slackjeff blog -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1983636563768502"
+     data-ad-slot="3835480024"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<p>
+Depois disso voltei a fazer o processo todo manualmente como eu sempre fazia no slackbuilds que incluia
+links + terminal, e vi o quão nutela eu tinha ficado e perdido o dominio do sistema... Os slackbuilds que tinha mais 
+intimidade, sabia as suas dependências de cor e salteado acabaram se perdendo no abismo dos "queuefiles". Mas como? me perguntei logo em seguida. 
+Isso se deve a sempre o mesmo processo, no meu github.com/slackjeff tenho um repositório só com os queufiles que uso, 
+então eu sempre baixava, adicionava em /var/lib/sbopkg/queues/programa.sqf, carregava no sbopkg e já era, era só deixar 
+o mesmo fazer o resto.
+</p>
+
+<p>
+Bom, tem muita gente curiosa em relação a como usar o slackbuilds! Eu tenho um video no youtube aonde ensino de forma 
+completa como utilizar! https://www.youtube.com/watch?v=Xx-ZO734zbc<br>
+Bom, o meu lance é o seguinte, eu abro sempre um terminal com o browser links e acompanho o changelog do Slackbuilds 
+com os softwares que eu tenho em minha máquina. Como utilizo poucos softwares do Slackbuilds eu acabo que tendo 
+conhecimento de todos que estão em minha máquina! Então se no changelog aponta uma versão mais nova eu basicamente abro 
+outro terminal com o links também, baixo os scripts, executo e atualizo! Após isso é feito o processo abaixo.
+</p>
+
+<p>
+Depois dessa breve história vou te passar um hack que eu sempre utilizei antes dessa automatização toda de 4k de 
+linhas. Normalmente muitos softwares possuem dependências, o slackbuilds mostras as dependências que o software 
+precisa e se você não quiser por exemplo mais o SSR 'Simple screen recorder' as dependências do mesmo vão ficar no 
+sistema correto? A solução é remover manualmente as mesmas. Normalmente eu faço um hack bem simples para remoção 
+automatica que consiste em 2 simples etapas.
+</p>
+
+
+<h2>Criar o diretório slackbuilds</h2>
+
+<p>
+Crio o diretório slackbuilds em /var/log/slackbuilds/ este diretório de logs vai ter todas as tracks dos softwares que 
+foram compilados/instalados utilizando o slackbuilds, é adicionado manualmente após cada instalação. Vamos supor que 
+estou compilando o SSR, ele depende do ffmpeg e no ffmpeg eu sempre ativo o x264. Então são duas dependências para 
+instalar o ssr em si. O programa principal é o ssr, então após compilar o x264 e instalar o pacote eu faço:
+</p>
+
+<pre>
+# echo 'x264' > /var/log/slackbuilds/ssr
+</pre>
+
+<p>
+Passar o caminho sempre de /var/log/slackbuilds/ é chato... Seria melhor usar uma variável + nome não? Então adicione 
+no .bashrc localizado em /root/.bashrc a seguinte linha:
+</p>
+
+<pre>
+# echo 'slackbuilds=/var/log/slackbuilds' >> /root/.bashrc 
+</pre>
+
+<p>
+Como isto você não precisa mais passar o caminho absoluto e sim a variável + nome do pacote.
+</p>
+
+<pre>
+# echo 'x264' > ${slackbuilds}/ssr
+</pre>
+
+<p>
+E assim você vai seguindo, instalando e adicionando no arquivo de track. Claro que é mais prático instalar tudo 
+primeiro e depois jogar todas as deps no arquivo de track em uma buxada... É melhor que ficar fazendo um por um não é?
+</p>
+
+<pre>
+# echo 'ffmpeg' >> ${slackbuilds}/ssr
+# echo 'ssr' >> {slackbuilds}/ssr
+</pre>
+
+<pre>
+cat << EOF >> ${slackbuilds}/ssr
+x264
+ffmpeg
+ssr
+EOF
+</pre>
+
+<p>
+Uma nota! No arquivo de track você não precisa por em ordem as dependências... As mesmas serão utilizadas para fazer a 
+remoção do software + deps e apenas isso.
+</p>
+
+<p>
+Outra nota! Não preciso te falar que se ssr depende de ffmpeg, Y depende de ffmpeg, Z depende de ffmpeg e eu remover 
+junto com o ssr por exemplo, Y e Z param de funcionar. Acho que isso é o básico e você ja deve saber.
+</p>
+
+<h2>Hack no .bashrc</h2>
+
+<p>
+Agora o segundo passo que eu faço sempre é criar uma função no .bashrc do root chamada removeslackbuilds, essa função 
+vai basicamente rodar o removepkg puxando o arquivo de track. Vá até seu .bashrc e adicione:
+</p>
+
+<pre>
+removeslackbuilds()
+{
+   local archive='/var/log/slackbuilds'
+   
+   if cat "${archive}/${1}" | xargs -n 1 removepkg; then
+      # Removendo o arquivo de track tbm :)
+      rm "${archive}/${1}"
+   fi
+}
+</pre>
+
+<p>
+Ou para os preguiçosos
+</p>
+
+<pre>
+cat << EOF >> /root/.bashrc
+removeslackbuilds()
+{
+   local archive='/var/log/slackbuilds'
+   
+   if cat "${archive}/${1}" | xargs -n 1 removepkg; then
+      # Removendo o arquivo de track tbm :)
+      rm "${archive}/${1}"
+   fi
+}
+EOF
+</pre>
+
+<p>
+Então sempre que eu preciso remover um software que foi pego do slackbuilds e tem depêndencias eu executo 
+removeslackbuilds SOFTWARE<br>
+Se o software não tem dependências eu simplesmente ignoro a etapa acima e faço no braço normalmente.
+</p>
+
+</body>
+</html>
+
